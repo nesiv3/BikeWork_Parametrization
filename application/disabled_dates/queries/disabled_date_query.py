@@ -10,7 +10,7 @@ class GetDisabledDatesQueryHandler:
         self.uow = uow
 
     def handle(self, query: GetDisabledDatesQuery):
-        dates = self.uow.disabled_dates.get_all()
+        dates = self.uow.disabled_dates.get_next_15_days()
         if not dates:
             raise NotFoundException("DisabledDates")
         return [DisabledDateDTO.from_orm(date) for date in dates]

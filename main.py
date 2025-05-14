@@ -3,7 +3,7 @@ from api import catalog, disabled_dates
 
 app = FastAPI(
     title="BikeWork Store API",
-    description="API para gestionar catálogos.",
+    description="API para gestionar la parametrización del sistema.",
     version="1.0.0"
 )
 
