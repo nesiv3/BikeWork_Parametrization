@@ -45,6 +45,7 @@ venv.bak/
 
 # dotenv environment variables
 *.env
+.env
 
 # Deployment
 .deployment
