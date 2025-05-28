@@ -3,20 +3,23 @@ import os
 from dotenv import load_dotenv
 
 load_dotenv()
-REDIS_URL = os.getenv("REDIS_URL")
-REDIS_PORT = os.getenv("REDIS_PORT")
 
-REDIS_USERNAME:str = os.getenv("REDIS_NAME","").strip()
-REDIS_PASSWORD:str = str(os.getenv("REDIS_PASS").strip())
+def get_redis_client():
+    if not hasattr(get_redis_client, "_client"):
+        REDIS_HOST = os.getenv("REDIS_URL")
+        REDIS_PORT = int(os.getenv("REDIS_PORT", 6379))
+        REDIS_USERNAME = os.getenv("REDIS_NAME", "").strip()
+        REDIS_PASSWORD = os.getenv("REDIS_PASS", "").strip()
+        pool = redis.ConnectionPool(
+            host=REDIS_HOST,
+            port=REDIS_PORT,
+            username=REDIS_USERNAME,
+            password=REDIS_PASSWORD,
+            decode_responses=True,
+            max_connections=10  # Ajusta según tus necesidades
+        )
+        get_redis_client._client = redis.Redis(connection_pool=pool)
+    return get_redis_client._client
 
-redis_client = redis.Redis(
-    host=REDIS_URL,
-    port=REDIS_PORT,
-    decode_responses=True,
-    username=REDIS_USERNAME,
-    password=REDIS_PASSWORD,
-    
-)
-
-redis_client = redis.Redis(connection_pool=redis_client)
+redis_client = get_redis_client()
 
