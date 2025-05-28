@@ -15,5 +15,8 @@ redis_client = redis.Redis(
     decode_responses=True,
     username=REDIS_USERNAME,
     password=REDIS_PASSWORD,
+    
 )
+
+redis_client = redis.Redis(connection_pool=redis_client)
 
