@@ -45,7 +45,6 @@ venv.bak/
 
 # dotenv environment variables
 *.env
-.env
 
 # Deployment
 .deployment
@@ -55,3 +54,7 @@ venv.bak/
 
 # Logs
 *.log
+
+# Azure artifacts
+*.azure/
+*.azure-pipelines/
